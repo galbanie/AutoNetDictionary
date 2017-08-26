@@ -137,10 +137,10 @@ object Applications : Table("APPLICATIONS"){
     `Note10` varchar(300) CHARACTER SET utf8 DEFAULT '',
     `PowerOutputId` = integer("MODEL_ID")
     `AssetLogicalName` varchar(45) CHARACTER SET utf8 NOT NULL DEFAULT '',
-    `AssetItemRef` varchar(255) CHARACTER SET utf8 NOT NULL DEFAULT '',
-    `AssetItemOrder` int(11) DEFAULT '0',
-    `AssetFileName` varchar(255) CHARACTER SET utf8 NOT NULL DEFAULT '',
-    `TransmissionElecControlledID` = integer("MODEL_ID")
-    `TransmissionMfrID` = integer("MODEL_ID")*/
+`AssetItemRef` varchar(255) CHARACTER SET utf8 NOT NULL DEFAULT '',
+`AssetItemOrder` int(11) DEFAULT '0',
+`AssetFileName` varchar(255) CHARACTER SET utf8 NOT NULL DEFAULT '',
+`TransmissionElecControlledID` = integer("MODEL_ID")
+`TransmissionMfrID` = integer("MODEL_ID")*/
 }
 
