@@ -72,4 +72,3 @@ object ActionsParameters : Table("ACTIONS_PARAMETERS"){
     val action_id = integer("ACTION_ID").references(Actions.id,ReferenceOption.CASCADE)
     val priority = integer("PRIORITY")
 }
-
