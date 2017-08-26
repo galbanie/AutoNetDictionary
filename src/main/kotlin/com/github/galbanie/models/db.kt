@@ -73,3 +73,74 @@ object ActionsParameters : Table("ACTIONS_PARAMETERS"){
     val priority = integer("PRIORITY")
 }
 
+object Applications : Table("APPLICATIONS"){
+    val applications_id = integer("APPLICATION_ID").primaryKey().autoIncrement()
+    val partToBaseVehicle_id = integer("PART_BASE_VEHICLE_ID")
+    val vehicleType_id = integer("VEHICLE_TYPE_ID")
+    val model_id = integer("MODEL_ID")
+    val subModel_id = integer("SUBMODEL_ID")
+    val mfrBodyCode_id = integer("MFR_BODY_CODE_ID")
+    val bodyConfig_id = integer("BODY_CONFIG_ID")
+    val bodyNumDoors_id = integer("BODY_NUM_DOORS_ID")
+    val bodyType_id = integer("BODY_TYPE_ID")
+    val driveType_id = integer("DRIVE_TYPE_ID")
+    val engineBase_id = integer("ENGINE_BASE_ID")
+    val engineDesignation_id = integer("ENGINE_DESIGNATION_ID")
+    val engineVIN_id = integer("ENGINE_VIN_ID")
+    val engineMfr_id = integer("ENGINE_MFR_ID")
+    val fuelDeliveryConfig_id = integer("FUEL_DELIVERY_CONFIG_ID")
+    val fuelDeliveryType_id = integer("FUEL_DELIVERY_TYPE_ID")
+    val fuelDeliverySubType_id = integer("FUEL_DELIVERY_SUBTYPE_ID")
+    val fuelSysControlType_id = integer("FUEL_SYS_CONTROL_TYPE_ID")
+    val fuelSystemDesign_id = integer("FUEL_SYSTEM_DESIGN_ID")
+    val aspiration_id = integer("ASPIRATION_ID")
+    val cylHeadType_id = integer("CYL_HEAD_TYPE_ID")
+    val fuelType_id = integer("FUEL_TYPE_ID")
+    val ignitionSystemType_id = integer("IGNITION_SYSTEM_TYPE_ID")
+    val transmissionType_id = integer("TRANSMISSION_TYPE_ID")
+    val transmissionBase_id = integer("TRANSMISSION_BASE_ID")
+    val transmissionControlType_id = integer("TRANSMISSION_CONTROL_TYPE_ID")
+    val transmissionMfrCode_id = integer("TRANSMISSION_MFR_CODE_ID")
+    val transmissionNumSpeeds_id = integer("TRANSMISSION_NUM_SPEEDS_ID")
+    val transfertCase_id = integer("TRANSFERT_CASE_ID")
+    val bedLength_id = integer("BED_LENGTH_ID")
+    val bedType_id = integer("BED_TYPE_ID")
+    val bedConfig_id = integer("BED_CONFIG_ID")
+    val wheelBase_id = integer("WHEEL_BASE_ID")
+    val frontBrakeType_id = integer("FRONT_BRAKE_TYPE_ID")
+    val rearBrakeType_id = integer("REAR_BRAKE_TYPE_ID")
+    val frontSpringType_id = integer("MODEL_ID")
+    val brakeSystem_id = integer("MODEL_ID")
+    val brakeType_id = integer("MODEL_ID")
+    val brakeABS_id = integer("MODEL_ID")
+    val rearSpringType_id = integer("MODEL_ID")
+    val steeringType_id = integer("MODEL_ID")
+    val steeringSystem_id = integer("MODEL_ID")
+    val restraintType_id = integer("MODEL_ID")
+    val regionAbbr_id = integer("MODEL_ID")
+    val engineVersion_id = integer("MODEL_ID")
+    val engineValves_id = integer("MODEL_ID")
+    /*`Note1` varchar(300) CHARACTER SET utf8 DEFAULT NULL,
+    `Note2` varchar(300) CHARACTER SET utf8 DEFAULT NULL,
+    `Note3` varchar(300) CHARACTER SET utf8 DEFAULT NULL,
+    `Note4` varchar(300) CHARACTER SET utf8 DEFAULT NULL,
+    `Note5` varchar(300) CHARACTER SET utf8 DEFAULT NULL,
+    `DateAdded` float DEFAULT '0',
+    `DateModified` float DEFAULT '0',
+    `IsValidable` bit(1) NOT NULL DEFAULT b'1',
+    `Qty` int(11) DEFAULT '1',
+    `upsize_ts` timestamp NULL DEFAULT NULL,
+    `Note6` varchar(300) CHARACTER SET utf8 DEFAULT '',
+    `Note7` varchar(300) CHARACTER SET utf8 DEFAULT '',
+    `Note8` varchar(300) CHARACTER SET utf8 DEFAULT '',
+    `Note9` varchar(300) CHARACTER SET utf8 DEFAULT '',
+    `Note10` varchar(300) CHARACTER SET utf8 DEFAULT '',
+    `PowerOutputId` = integer("MODEL_ID")
+    `AssetLogicalName` varchar(45) CHARACTER SET utf8 NOT NULL DEFAULT '',
+    `AssetItemRef` varchar(255) CHARACTER SET utf8 NOT NULL DEFAULT '',
+    `AssetItemOrder` int(11) DEFAULT '0',
+    `AssetFileName` varchar(255) CHARACTER SET utf8 NOT NULL DEFAULT '',
+    `TransmissionElecControlledID` = integer("MODEL_ID")
+    `TransmissionMfrID` = integer("MODEL_ID")*/
+}
+
