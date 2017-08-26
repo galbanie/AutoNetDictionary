@@ -78,7 +78,7 @@ object ActionsParameters : Table("ACTIONS_PARAMETERS"){
 
 object PartToBaseVehicles : Table("PART_TO_BASE_VEHICLES"){
     val id = integer("PART_TO_BASE_VEHICLE_ID").primaryKey()
-    val BaseVehicle_id = integer("BASE_VEHICLE").references(BaseVehicles.id, ReferenceOption.CASCADE).primaryKey()
+    val BaseVehicle_id = integer("BASE_VEHICLE_ID").references(BaseVehicles.id, ReferenceOption.CASCADE).primaryKey()
     val Part_id = integer("PARTS").references(Parts.id, ReferenceOption.CASCADE).primaryKey()
     val Position_id = integer("POSITIONS").references(Positions.id, ReferenceOption.CASCADE).primaryKey()
 }
@@ -162,10 +162,10 @@ object EngineMfr : Table("ENGINE_MFRS"){
 
 object fuelDeliveryConfigurations : Table("FUEL_DELIVERY_CONFIGURATIONS"){
     val id = integer("FUEL_DELIVERY_CONFIGURATION_ID").primaryKey()
-    val FuelDeliveryType_id = integer("FUEL_DELIVERY_TYPE").references(FuelDeliveryTypes.id, ReferenceOption.CASCADE).primaryKey()
-    val FuelDeliverySubType_id = integer("FUEL_DELIVERY_SUB_TYPE").references(FuelDeliverySubTypes.id, ReferenceOption.CASCADE).primaryKey()
-    val FuelSystemControlType_id = integer("FUEL_SYSTEM_CONTROL_TYPE").references(FuelSystemControlTypes.id, ReferenceOption.CASCADE).primaryKey()
-    val FuelSystemDesign_id = integer("FUEL_SYSTEM_DESIGN").references(FuelSystemDesigns.id, ReferenceOption.CASCADE).primaryKey()
+    val FuelDeliveryType_id = integer("FUEL_DELIVERY_TYPE_ID").references(FuelDeliveryTypes.id, ReferenceOption.CASCADE).primaryKey()
+    val FuelDeliverySubType_id = integer("FUEL_DELIVERY_SUB_TYPE_ID").references(FuelDeliverySubTypes.id, ReferenceOption.CASCADE).primaryKey()
+    val FuelSystemControlType_id = integer("FUEL_SYSTEM_CONTROL_TYPE_ID").references(FuelSystemControlTypes.id, ReferenceOption.CASCADE).primaryKey()
+    val FuelSystemDesign_id = integer("FUEL_SYSTEM_DESIGN_ID").references(FuelSystemDesigns.id, ReferenceOption.CASCADE).primaryKey()
 
 }
 
