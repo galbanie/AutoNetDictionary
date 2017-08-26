@@ -1,7 +1,6 @@
 package com.github.galbanie.models
 
 import com.github.galbanie.utils.ParameterType
-import com.sun.tools.javac.util.Name
 import org.jetbrains.exposed.sql.ReferenceOption
 import org.jetbrains.exposed.sql.Table
 
