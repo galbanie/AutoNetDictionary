@@ -19,17 +19,17 @@ class Session {
     val isUserProcessProperty = SimpleBooleanProperty(false)
     var isUserProcess by isUserProcessProperty
 
-    val dateLoginProperty = SimpleObjectProperty<DateTime>()
+    /*val dateLoginProperty = SimpleObjectProperty<DateTime>()
     var dateLogin by dateLoginProperty
 
     val dateLogoutProperty = SimpleObjectProperty<DateTime>()
-    var dateLogout by dateLogoutProperty
+    var dateLogout by dateLogoutProperty*/
 }
 
 class SessionModel : ItemViewModel<Session>() {
     val id = bind(Session::idProperty)
     val user = bind(Session::userProperty)
     val isUserProcess = bind(Session::isUserProcessProperty)
-    val dateLogin = bind(Session::dateLoginProperty)
-    val dateLogout = bind(Session::dateLogoutProperty)
+    /*val dateLogin = bind(Session::dateLoginProperty)
+    val dateLogout = bind(Session::dateLogoutProperty)*/
 }

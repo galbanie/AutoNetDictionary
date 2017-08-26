@@ -3,6 +3,7 @@ package com.github.galbanie.views
 import com.github.galbanie.Styles
 import com.github.galbanie.controllers.UserController
 import com.github.galbanie.models.UserModel
+import javafx.beans.binding.BooleanExpression
 import javafx.geometry.Orientation
 import javafx.scene.control.Alert.AlertType.INFORMATION
 import javafx.scene.control.Button
@@ -16,6 +17,12 @@ class LoginArea : View("Login") {
 
     val messageWrapper by cssid()
     val passwordField by cssid()
+
+    init {
+        disableSave()
+        disableDelete()
+        disableRefresh()
+    }
 
     override val root = vbox {
         addClass(Styles.loginScreen)
