@@ -14,16 +14,16 @@ class CrudSession : CrudTable<Session> {
         it[id] = t.id
         it[user_id] = t.user.id
         it[isUserProcess] = t.isUserProcess
-        it[dateLogin] = t.dateLogin
-        it[dateLogout] = t.dateLogout
+        /*it[dateLogin] = t.dateLogin
+        it[dateLogout] = t.dateLogout*/
     }
 
     fun fromRow(r: ResultRow) = Session().apply{
         id = r[Sessions.id]
         user = CrudUser().findBy(Users.id,r[Sessions.id])?.first()
         isUserProcess = r[Sessions.isUserProcess]
-        dateLogin = r[Sessions.dateLogin]
-        dateLogout = r[Sessions.dateLogout]
+        /*dateLogin = r[Sessions.dateLogin]
+        dateLogout = r[Sessions.dateLogout]*/
     }
 
     override fun createTable() {
@@ -47,8 +47,8 @@ class CrudSession : CrudTable<Session> {
         Sessions.update({Sessions.id eq t.id}){
             it[user_id] = t.user.id
             it[isUserProcess] = t.isUserProcess
-            it[dateLogin] = t.dateLogin
-            it[dateLogout] = t.dateLogout
+            /*it[dateLogin] = t.dateLogin
+            it[dateLogout] = t.dateLogout*/
         }
     }
 

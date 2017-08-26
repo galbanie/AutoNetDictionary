@@ -12,6 +12,11 @@ object Sessions : Table("SESSIONS"){
     val id = integer("SESSION_ID").primaryKey().autoIncrement()
     val user_id = integer("USER_ID").references(Users.id,ReferenceOption.CASCADE)
     val isUserProcess = bool("IS_USER_PROCESS").default(false)
+}
+
+object HistoricSessions : Table("HISTORIC_SESSIONS"){
+    val id = integer("HISTORIC_SESSION_ID").primaryKey().autoIncrement()
+    val session_id = integer("SESSION_ID").references(Sessions.id, ReferenceOption.NO_ACTION)
     val dateLogin = date("DATE_LOGIN")
     val dateLogout = date("DATE_LOGOUT")
 }
@@ -67,3 +72,4 @@ object ActionsParameters : Table("ACTIONS_PARAMETERS"){
     val action_id = integer("ACTION_ID").references(Actions.id,ReferenceOption.CASCADE)
     val priority = integer("PRIORITY")
 }
+
