@@ -11,48 +11,61 @@ object Parts : Table("PARTS") {
     val id = integer("PART_ID").primaryKey()
 }
 
-object BaseVehicles : Table("BASE_VEHICLES") {
-    val id = integer("BASE_VEHICLE_ID").primaryKey()
+object BaseVehicles : Table("BaseVehicle") {
+    val id = integer("BaseVehicleID").primaryKey()
+    val Year_id = integer("YearID").references(Years.id, ReferenceOption.CASCADE)
+    val Make_id = integer("MakeID").references(Makes.id, ReferenceOption.CASCADE)
+    val Model_id = integer("ModelID").references(Models.id, ReferenceOption.CASCADE)
 }
 
-object VehicleTypes : Table("VEHICLE_TYPES"){
-    val id = integer("VEHICLE_TYPE_ID").primaryKey()
-    val vehicleType = varchar("VEHICLE_TYPE",40)
+object Years : Table("Year"){
+    val id = integer("YearID").primaryKey()
+}
+object Makes : Table("Make"){
+    val id = integer("MakeID").primaryKey()
+    val name = varchar("MakeName",255)
+}
+object VehicleTypes : Table("VehicleType"){
+    val id = integer("VehicleTypeID").primaryKey()
+    val name = varchar("VehicleTypeName",255)
+    val VehicleTypeGroup_id = integer("VehicleTypeGroupID").references(VehicleTypeGroups.id, ReferenceOption.CASCADE)
+}
+object Models : Table("Model"){
+    val id = integer("ModelID").primaryKey()
+    val name = varchar ("ModelName",255)
+    val vehicleType_id = integer("VehicleTypeID").references(VehicleTypes.id, ReferenceOption.CASCADE)
 }
 
-object Models : Table("MODELS"){
-    val id = integer("MODEL_ID").primaryKey()
-    val name = varchar ("MODEL_NAME",255)
-    val vehicleType_id = integer("VEHICLE_TYPE_ID").references(VehicleTypes.id, ReferenceOption.CASCADE)
+object SubModels : Table("SubModel"){
+    val id = integer("SubModelID").primaryKey()
+    val name = varchar ("SubModelName",255)
 }
-
-object SubModels : Table("SUB_MODELS"){
-    val id = integer("SUB_MODEL_ID").primaryKey()
-    val name = varchar ("SUB_MODEL_NAME",50)
+object VehicleTypeGroups : Table("VehicleTypeGroup"){
+    val id = integer("VehicleTypeGroupID").primaryKey()
+    val name = varchar("VehicleTypeGroupName",255)
 }
-
-object MfrBodyCodes : Table("MFR_BODY_CODES"){
-    val id = integer("MFR_BODY_CODE_ID").primaryKey()
-    val name = varchar ("MFR_BODY_CODE_NAME",255)
+object MfrBodyCodes : Table("MfrBodyCode"){
+    val id = integer("MfrBodyCodeID").primaryKey()
+    val name = varchar ("MfrBodyCodeName",255)
 }
 
 object BodyConfigurations : Table("BODY_CONFIGURATIONS"){
     val id = integer("BODY_CONFIGURATION_ID").primaryKey()
 }
 
-object BodyNumDoors : Table("BODY_NUM_DOORS"){
-    val id = integer("BODY_NUM_DOOR_ID").primaryKey()
-    val numDoor = varchar ("BODY_NUM_DOOR",3)
+object BodyNumDoors : Table("BodyNumDoors"){
+    val id = integer("BodyNumDoorsID").primaryKey()
+    val numDoor = varchar ("BodyNumDoors",10)
 }
 
-object BodyTypes : Table("BODY_TYPES"){
-    val id = integer("BODY_TYPE_ID").primaryKey()
-    val name = varchar ("BODY_TYPE_NAME",255)
+object BodyTypes : Table("BodyType"){
+    val id = integer("BodyTypeID").primaryKey()
+    val name = varchar ("BodyTypeName",255)
 }
 
-object DriveTypes : Table("DRIVE_TYPES"){
-    val id = integer("DRIVE_TYPE_ID").primaryKey()
-    val name = varchar ("DRIVE_TYPE_NAME",50)
+object DriveTypes : Table("DriveType"){
+    val id = integer("DriveTypeID").primaryKey()
+    val name = varchar ("DriveTypeName",50)
 }
 
 object EngineBases : Table("ENGINE_BASES"){
@@ -148,25 +161,25 @@ object TransfertCases : Table("TRANSFERT_CASES"){
     val id = integer("TRANSFERT_CASE_ID").primaryKey()
 
 }
-object BedLengths : Table("BED_LENGTHS"){
-    val id = integer("BED_LENGTH_ID").primaryKey()
-    val name = varchar ("BED_LENGTH_NAME",255)
-    val metric = varchar("BED_LENGTH_METRIC",255)
+object BedLengths : Table("BedLength"){
+    val id = integer("BedLengthID").primaryKey()
+    val name = varchar ("BedLength",255)
+    val metric = varchar("BedLengthMetric",255)
 }
-object BedTypes : Table("BED_TYPES"){
-    val id = integer("BED_TYPE_ID").primaryKey()
-    val name = varchar ("BED_TYPE_NAME",255)
+object BedTypes : Table("BedType"){
+    val id = integer("BedTypeID").primaryKey()
+    val name = varchar ("BedTypeName",255)
 
 }
-object BedConfigs : Table("BED_CONFIGS"){
-    val id = integer("BED_CONFIG_ID").primaryKey()
-    val BedLength_id = integer("BED_LENGTH_ID").references(BedLengths.id, ReferenceOption.CASCADE)
-    val BedType_id = integer("BED_TYPE_ID").references(BedTypes.id, ReferenceOption.CASCADE)
+object BedConfigs : Table("BedConfig"){
+    val id = integer("BedConfigID").primaryKey()
+    val BedLength_id = integer("BedLengthID").references(BedLengths.id, ReferenceOption.CASCADE)
+    val BedType_id = integer("BedTypeID").references(BedTypes.id, ReferenceOption.CASCADE)
 }
-object WheelBases : Table("WHEEL_BASES"){
-    val id = integer("WHEEL_BASE_ID").primaryKey()
-    val name = varchar ("WHEEL_BASE_NAME",255)
-    val metric = varchar("WHEEL_BASE_METRIC",255)
+object WheelBases : Table("WheelBase"){
+    val id = integer("WheelBaseID").primaryKey()
+    val name = varchar ("WheelBaseName",255)
+    val metric = varchar("WheelBaseMetric",255)
 }
 object BrakeConfigs : Table("BRAKE_CONFIGS"){
     val id = integer("BRAKE_CONFIG_ID").primaryKey()
@@ -208,11 +221,11 @@ object RestraintTypes : Table("RESTRAINT_TYPES"){
     val id = integer("RESTRAINT_TYPE_ID").primaryKey()
 
 }
-object Regions : Table("REGIONS"){
-    val id = integer("REGION_ID").primaryKey()
-    val parentId = integer("PARENT_REGION_ID")
-    val name = varchar("REGION_NAME",255)
-    val nameAbbr = varchar("REGION_ABBR_NAME",255)
+object Regions : Table("Region"){
+    val id = integer("RegionID").primaryKey()
+    val parentId = integer("ParentID")
+    val name = varchar("RegionName",255)
+    val nameAbbr = varchar("RegionAbbr",255)
 }
 object EngineVersions: Table("ENGINE_VERSIONS"){
     val id = integer("ENGINE_VERSION_ID").primaryKey()
@@ -226,4 +239,82 @@ object PowerOutputs: Table("POWER_OUTPUTS"){
     val id = integer("POWER_OUTPUT_ID").primaryKey()
     val horsePower = varchar("HORSE_POWER",255)
     val kilowattPower = varchar("KILOWATT_POWER",255)
+}
+object PublicationStages: Table("PublicationStage"){
+    val id = integer("PublicationStageID").primaryKey()
+    val name = varchar("PublicationStageName",255)
+}
+object VehicleToBedConfigs: Table("VehicleToBedConfig"){
+    val id = integer("VehicleToBedConfigID").primaryKey()
+    val Vehicle_id = integer("VehicleID").references(Vehicles.id, ReferenceOption.CASCADE)
+    val BedConfig_id = integer("BedConfigID").references(BedConfigs.id, ReferenceOption.CASCADE)
+    val name = varchar("Source",255)
+}
+object VehicleToMfrBodyCodes: Table("VehicleToMfrBodyCode"){
+    val id = integer("VehicleToMfrBodyCodeID").primaryKey()
+    val Vehicle_id = integer("VehicleID").references(Vehicles.id, ReferenceOption.CASCADE)
+    val Mfr_id = integer("MfrBodyCodeID").references(MfrBodyCodes.id, ReferenceOption.CASCADE)
+    val name = varchar("Source",255)
+}
+object VehicleToBodyStyleConfigs: Table("VehicleToBodyStyleConfig"){
+    val id = integer("VehicleToBodyStyleConfigID").primaryKey()
+    val Vehicle_id = integer("VehicleID").references(Vehicles.id, ReferenceOption.CASCADE)
+    val BodyStyleConfig_id = integer("BodyStyleConfigID").references(BodyStyleConfigs.id, ReferenceOption.CASCADE)
+    val name = varchar("Source",255)
+}
+object VehicleToSpringTypeConfigs: Table("VehicleToSpringTypeConfig"){
+    val id = integer("VehicleToSpringTypeConfigID").primaryKey()
+    val Vehicle_id = integer("VehicleID").references(Vehicles.id, ReferenceOption.CASCADE)
+    val SpringTypeConfig_id = integer("SpringTypeConfigID").references(SpringTypeConfigs.id, ReferenceOption.CASCADE)
+    val name = varchar("Source",255)
+}
+object VehicleToBrakeConfigs: Table("VehicleToBrakeConfig"){
+    val id = integer("VehicleToBrakeConfigID").primaryKey()
+    val Vehicle_id = integer("VehicleID").references(Vehicles.id, ReferenceOption.CASCADE)
+    val BrakeConfig_id = integer("BrakeConfigID").references(BrakeConfigs.id, ReferenceOption.CASCADE)
+    val name = varchar("Source",255)
+}
+object VehicleToSteeringConfigs: Table("VehicleToSteeringConfig"){
+    val id = integer("VehicleToSteeringConfigID").primaryKey()
+    val Vehicle_id = integer("VehicleID").references(Vehicles.id, ReferenceOption.CASCADE)
+    val SteeringConfig_id = integer("SteeringConfigID").references(VehicleToSteeringConfigs.id, ReferenceOption.CASCADE)
+    val name = varchar("Source",255)
+}
+object VehicleToDriveTypes: Table("VehicleToDriveType"){
+    val id = integer("VehicleToDriveTypeID").primaryKey()
+    val Vehicle_id = integer("VehicleID").references(Vehicles.id, ReferenceOption.CASCADE)
+    val DriveType_id = integer("DriveTypeID").references(DriveTypes.id, ReferenceOption.CASCADE)
+    val name = varchar("Source",255)
+}
+object VehicleToTransmissions: Table("VehicleToTransmission"){
+    val id = integer("VehicleToTransmissionID").primaryKey()
+    val Vehicle_id = integer("VehicleID").references(Vehicles.id, ReferenceOption.CASCADE)
+    //val Transmission_id = integer("TransmissionID").references(Transmissions.id, ReferenceOption.CASCADE)
+    val name = varchar("Source",255)
+}
+object VehicleToEngineConfigs: Table("VehicleToEngineConfig"){
+    val id = integer("VehicleToEngineConfigID").primaryKey()
+    val Vehicle_id = integer("VehicleID").references(Vehicles.id, ReferenceOption.CASCADE)
+    //val EngineConfig_id = integer("EngineConfigID").references(EngineConfigs.id, ReferenceOption.CASCADE)
+    val name = varchar("Source",255)
+}
+object VehicleToWheelbases: Table("VehicleToWheelbase"){
+    val id = integer("VehicleToWheelbaseID").primaryKey()
+    val Vehicle_id = integer("VehicleID").references(Vehicles.id, ReferenceOption.CASCADE)
+    val Wheelbase_id = integer("WheelbaseID").references(WheelBases.id, ReferenceOption.CASCADE)
+    val name = varchar("Source",255)
+}
+object Vehicles: Table("Vehicle"){
+    val id = integer("VehicleID").primaryKey()
+    val Vehicle_id = integer("BaseVehicleID").references(BaseVehicles.id, ReferenceOption.CASCADE)
+    val Wheelbase_id = integer("SubModelID").references(SubModels.id, ReferenceOption.CASCADE)
+    val Region_id = integer("RegionID").references(Regions.id, ReferenceOption.CASCADE)
+    val PublicationStage_id = integer("PublicationStageID").references(PublicationStages.id, ReferenceOption.CASCADE)
+    val Publication_name = varchar("PublicationStageSource",100)
+    val Publication_date = date("PublicationStageDate")
+}
+object BodyStyleConfigs: Table("BodyStyleConfig"){
+    val id = integer("BodyStyleConfigID").primaryKey()
+    val BodyNumDoors_id = integer("BodyNumDoorsID").references(BodyNumDoors.id, ReferenceOption.CASCADE)
+    val BodyType_id = integer("BodyTypeID").references(BodyTypes.id, ReferenceOption.CASCADE)
 }
