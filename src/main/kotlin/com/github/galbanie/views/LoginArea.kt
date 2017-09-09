@@ -24,6 +24,10 @@ class LoginArea : View("Login") {
         disableRefresh()
     }
 
+    override fun onUndock() {
+        workspace.viewStack.remove(this)
+    }
+
     override val root = vbox {
         addClass(Styles.loginScreen)
 
