@@ -1,5 +1,6 @@
 package com.github.galbanie
 
+import com.github.galbanie.controllers.EventController
 import javafx.application.Application
 import javafx.scene.Scene
 import javafx.stage.Stage
@@ -7,7 +8,7 @@ import tornadofx.*
 
 class AutoNetDictionaryApp : App(AutoNetDictionaryWorkspace::class, Styles::class, AutoNetDictionaryScope()){
     init {
-
+        find<EventController>(scope)
     }
     override fun start(stage: Stage) {
         super.start(stage)
