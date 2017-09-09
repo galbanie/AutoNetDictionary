@@ -15,8 +15,8 @@ class Entry {
     val outputProperty = SimpleListProperty<Parameter>(FXCollections.observableArrayList())
     var output by outputProperty
 
-    val isValidProperty = SimpleBooleanProperty()
-    var isValid by isValidProperty
+    val isConfirmProperty = SimpleBooleanProperty()
+    var isConfirm by isConfirmProperty
 
     val creatorProperty = SimpleObjectProperty<User>()
     var creator by creatorProperty
@@ -29,4 +29,14 @@ class Entry {
 
     val dateModifiedProperty = SimpleObjectProperty<DateTime>()
     var dateModified by dateModifiedProperty
+}
+
+class EntryModel : ItemViewModel<Entry>() {
+    val input = bind(Entry::inputProperty)
+    val output = bind(Entry::outputProperty)
+    val isConfirm = bind(Entry::isConfirmProperty)
+    val creator = bind(Entry::creatorProperty)
+    val reporter = bind(Entry::reporterProperty)
+    val dateCreation = bind(Entry::dateCreationProperty)
+    val dateModified = bind(Entry::dateModifiedProperty)
 }
