@@ -1,5 +1,7 @@
 package com.github.galbanie.views
 
+import com.github.galbanie.EntryListFound
+import com.github.galbanie.EntryListRequest
 import com.github.galbanie.models.EntryModel
 import com.github.galbanie.models.Parameter
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon
@@ -13,6 +15,7 @@ import tornadofx.*
 class DictionaryArea : View("Dictionary") {
 
     override fun onDock() {
+        fire(EntryListRequest)
         with(workspace){
             button {
                 addClass("icon-only")
@@ -34,8 +37,16 @@ class DictionaryArea : View("Dictionary") {
                 treeview<Parameter> {
                     root = TreeItem()
                     isShowRoot = false
-                    cellFormat {
-
+                    cellFormat { param ->
+                        graphic = label(param.value) {
+                            useMaxWidth = true
+                            //addEventFilter(MouseEvent.MOUSE_CLICKED){center(ref.kclass as KClass<UIComponent>)}
+                        }
+                    }
+                    subscribe<EntryListFound> { event ->
+                        populate { parent ->
+                            if (parent == root ) event.entries.map { it.input } else event.entries.find { it.input.equals(parent.value) }!!.output
+                        }
                     }
                     /*populate { parent ->
                         if (parent == root )
