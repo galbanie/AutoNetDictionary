@@ -120,7 +120,7 @@ object FuelDeliveryTypes : Table("FuelDeliveryType"){
 
 object Aspirations : Table("Aspiration"){
     val id = integer("AspirationID").primaryKey()
-    val name = varchar ("AspirationName",255)
+    val name = varchar ("AspirationName",30)
 }
 
 object CylinderHeadTypes : Table("CylinderHeadType"){
@@ -161,8 +161,8 @@ object TransmissionBases : Table("TransmissionBase"){
 
 object BedLengths : Table("BedLength"){
     val id = integer("BedLengthID").primaryKey()
-    val name = varchar ("BedLength",255)
-    val metric = varchar("BedLengthMetric",255)
+    val name = varchar ("BedLength",10)
+    val metric = varchar("BedLengthMetric",10)
 }
 object BedTypes : Table("BedType"){
     val id = integer("BedTypeID").primaryKey()
@@ -402,8 +402,8 @@ object ChangeDetails: Table("ChangeDetails"){
 }
 object Abbreviations: Table("Abbreviation"){
     val id = integer("Abbreviation").primaryKey()
-    val name_Description = varchar("Description",255)
-    val name_LongDescription = varchar("LongDescription",255)
+    val name_Description = varchar("Description",20)
+    val name_LongDescription = varchar("LongDescription",200)
 }
 object EnglishPhrases: Table("EnglishPhrase"){
     val id = integer("EnglishPhraseID").primaryKey()
@@ -428,11 +428,11 @@ object LanguageTranslationAttachments: Table("LanguageTranslationAttachment"){
 object Attachments: Table("Attachment"){
     val id = integer("AttachmentID").primaryKey()
     val AttachmentType_id = integer("AttachmentTypeID").references(AttachmentTypes.id, ReferenceOption.CASCADE)
-    val AttachmentFileName = varchar("AttachmentFileName",255)
-    val AttachmentURL = varchar("AttachmentURL",255)
-    val AttachmentDescription = varchar("AttachmentDescription",255)
+    val AttachmentFileName = varchar("AttachmentFileName",50)
+    val AttachmentURL = varchar("AttachmentURL",100)
+    val AttachmentDescription = varchar("AttachmentDescription",50)
 }
 object AttachmentTypes: Table("AttachmentType"){
     val id = integer("AttachmentTypeID").primaryKey()
-    val name = varchar("AttachmentTypeName",255)
+    val name = varchar("AttachmentTypeName",20)
 }
