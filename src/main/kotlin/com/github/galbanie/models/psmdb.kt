@@ -132,7 +132,7 @@ object Applications : Table("APPLICATIONS"){
     val assetLogicalName = varchar("ASSET_LOGICAL_NAME",255)
     val assetItemRef = varchar("ASSET_ITEM_REF",255)
     val assetFileName = varchar("ASSET_ITEM_REF",255)
-    val transmissionElecControlled_id = integer("TRANSMISSION_ELEC_CONTROLLED_ID").references(TransmissionElecControlleds.id, ReferenceOption.SET_NULL)
+    val transmissionElecControlled_id = integer("TRANSMISSION_ELEC_CONTROLLED_ID").references(ElecControlleds.id, ReferenceOption.SET_NULL)
     val transmissionMFR_id = integer("TRANSMISSION_MFR_ID").references(TransmissionMfrs.id, ReferenceOption.SET_NULL)
     /*`Note1` varchar(300) CHARACTER SET utf8 DEFAULT NULL,
     `Note2` varchar(300) CHARACTER SET utf8 DEFAULT NULL,
