@@ -7,9 +7,6 @@ import org.jetbrains.exposed.sql.Table
  * Created by Galbanie on 2017-09-03.
  */
 
-object Parts : Table("PARTS") {
-    val id = integer("PART_ID").primaryKey()
-}
 
 object BaseVehicles : Table("BaseVehicle") {
     val id = integer("BaseVehicleID").primaryKey()
