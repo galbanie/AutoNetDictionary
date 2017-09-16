@@ -1,6 +1,7 @@
 package com.github.galbanie.models
 
 import com.github.galbanie.utils.ParameterType
+import com.github.galbanie.utils.Priority
 import org.jetbrains.exposed.sql.ReferenceOption
 import org.jetbrains.exposed.sql.Table
 
@@ -59,8 +60,8 @@ object Parameters : Table("PARAMETERS"){
 }
 
 object Entries : Table("Entries"){
-    val input_id = integer("INPUT").references(Parameters.id, ReferenceOption.CASCADE).primaryKey()
-    val output_id = integer("OUTPUT").references(Parameters.id, ReferenceOption.CASCADE).primaryKey()
+    val input_id = integer("INPUT").references(ParameterActions.id, ReferenceOption.CASCADE).primaryKey()
+    val output_id = integer("OUTPUT").references(ParameterActions.id, ReferenceOption.CASCADE).primaryKey()
     val valid = bool("VALID").default(false)
     val creator_id = integer("USER_ID").references(Users.id, ReferenceOption.SET_NULL)
     val reporter_id = integer("USER_ID").references(Users.id, ReferenceOption.SET_NULL)
@@ -68,10 +69,11 @@ object Entries : Table("Entries"){
     val dateModified = date("DATE_MODIFIED").nullable()
 }
 
-object ActionsParameters : Table("ACTIONS_PARAMETERS"){
-    val param_id = integer("PARAMETER_ID").references(Parameters.id, ReferenceOption.CASCADE)
+object ParameterActions : Table("ACTIONS_PARAMETERS"){
+    val id = integer("PARAMETER_ACTIONS_ID").primaryKey().autoIncrement()
+    val parameter_id = integer("PARAMETER_ID").references(Parameters.id, ReferenceOption.CASCADE)
     val action_id = integer("ACTION_ID").references(Actions.id, ReferenceOption.CASCADE)
-    val priority = integer("PRIORITY")
+    val priority = enumeration("PRIORITY", Priority::class.java)
 }
 
 object Applications : Table("APPLICATIONS"){

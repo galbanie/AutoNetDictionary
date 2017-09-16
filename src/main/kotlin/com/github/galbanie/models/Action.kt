@@ -14,3 +14,8 @@ class Action {
     val nameProperty = SimpleStringProperty()
     var name by nameProperty
 }
+
+class ActionModel : ItemViewModel<Action>() {
+    val id = bind { item?.idProperty }
+    val name = bind { item?.nameProperty }
+}
