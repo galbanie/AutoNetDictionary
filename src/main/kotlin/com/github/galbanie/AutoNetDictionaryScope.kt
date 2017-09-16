@@ -1,5 +1,6 @@
 package com.github.galbanie
 
+import com.github.galbanie.models.Action
 import com.github.galbanie.models.Entry
 import com.github.galbanie.models.Parameter
 import com.github.galbanie.models.Session
@@ -16,6 +17,7 @@ class AutoNetDictionaryScope : Scope() {
     val sessionProperty = SimpleObjectProperty<Session>()
     val session : Session? by sessionProperty
 
+    val actions = FXCollections.observableArrayList<Action>()
     val entries = FXCollections.observableArrayList<Entry>(
             Entry().apply {
                 input = Parameter().apply {
@@ -24,16 +26,16 @@ class AutoNetDictionaryScope : Scope() {
                     value = "abs"
                 }
                 output.addAll(
-                        Parameter().apply {
-                            type = ParameterType.OUTPUT
-                            field = "BrakeABS"
-                            value = "4-wheelABS"
-                        },
-                        Parameter().apply {
-                            type = ParameterType.OUTPUT
-                            field = "BrakeABS"
-                            value = "2-wheelABS"
-                        }
+                    Parameter().apply {
+                        type = ParameterType.OUTPUT
+                        field = "BrakeABS"
+                        value = "4-wheelABS"
+                    },
+                    Parameter().apply {
+                        type = ParameterType.OUTPUT
+                        field = "BrakeABS"
+                        value = "2-wheelABS"
+                    }
                 )
             },
             Entry().apply {
@@ -43,11 +45,11 @@ class AutoNetDictionaryScope : Scope() {
                     value = "Brake Drum"
                 }
                 output.addAll(
-                        Parameter().apply {
-                            type = ParameterType.OUTPUT
-                            field = "RearBrakeType"
-                            value = "Drum"
-                        }
+                    Parameter().apply {
+                        type = ParameterType.OUTPUT
+                        field = "RearBrakeType"
+                        value = "Drum"
+                    }
                 )
             }
     )

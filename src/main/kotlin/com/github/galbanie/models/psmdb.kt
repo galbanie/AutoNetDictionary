@@ -3,7 +3,6 @@ package com.github.galbanie.models
 import com.github.galbanie.utils.ParameterType
 import org.jetbrains.exposed.sql.ReferenceOption
 import org.jetbrains.exposed.sql.Table
-import org.jetbrains.exposed.sql.booleanLiteral
 
 /**
  * Created by Galbanie on 2017-09-03.
@@ -104,7 +103,6 @@ object Applications : Table("APPLICATIONS"){
     val transmissionControlType_id = integer("TRANSMISSION_CONTROL_TYPE_ID").references(TransmissionControlTypes.id, ReferenceOption.SET_NULL)
     val transmissionMfrCode_id = integer("TRANSMISSION_MFR_CODE_ID").references(TransmissionMfrCodes.id, ReferenceOption.SET_NULL)
     val transmissionNumSpeeds_id = integer("TRANSMISSION_NUM_SPEEDS_ID").references(TransmissionNumSpeeds.id, ReferenceOption.SET_NULL)
-   // val transfertCase_id = integer("TRANSFERT_CASE_ID").references(TransfertCases.id, ReferenceOption.SET_NULL)
     val bedLength_id = integer("BED_LENGTH_ID").references(BedLengths.id, ReferenceOption.SET_NULL)
     val bedType_id = integer("BED_TYPE_ID").references(BedTypes.id, ReferenceOption.SET_NULL)
     val bedConfig_id = integer("BED_CONFIG_ID").references(BedConfigs.id, ReferenceOption.SET_NULL)
@@ -134,28 +132,6 @@ object Applications : Table("APPLICATIONS"){
     val assetFileName = varchar("ASSET_ITEM_REF",255)
     val transmissionElecControlled_id = integer("TRANSMISSION_ELEC_CONTROLLED_ID").references(ElecControlleds.id, ReferenceOption.SET_NULL)
     val transmissionMFR_id = integer("TRANSMISSION_MFR_ID").references(TransmissionMfrs.id, ReferenceOption.SET_NULL)
-    /*`Note1` varchar(300) CHARACTER SET utf8 DEFAULT NULL,
-    `Note2` varchar(300) CHARACTER SET utf8 DEFAULT NULL,
-    `Note3` varchar(300) CHARACTER SET utf8 DEFAULT NULL,
-    `Note4` varchar(300) CHARACTER SET utf8 DEFAULT NULL,
-    `Note5` varchar(300) CHARACTER SET utf8 DEFAULT NULL,
-    `DateAdded` float DEFAULT '0',
-    `DateModified` float DEFAULT '0',
-    `IsValidable` bit(1) NOT NULL DEFAULT b'1',
-    `Qty` int(11) DEFAULT '1',
-    `upsize_ts` timestamp NULL DEFAULT NULL,
-    `Note6` varchar(300) CHARACTER SET utf8 DEFAULT '',
-    `Note7` varchar(300) CHARACTER SET utf8 DEFAULT '',
-    `Note8` varchar(300) CHARACTER SET utf8 DEFAULT '',
-    `Note9` varchar(300) CHARACTER SET utf8 DEFAULT '',
-    `Note10` varchar(300) CHARACTER SET utf8 DEFAULT '',
-    `PowerOutputId` = integer("MODEL_ID")
-    `AssetLogicalName` varchar(45) CHARACTER SET utf8 NOT NULL DEFAULT '',
-`AssetItemRef` varchar(255) CHARACTER SET utf8 NOT NULL DEFAULT '',
-`AssetItemOrder` int(11) DEFAULT '0',
-`AssetFileName` varchar(255) CHARACTER SET utf8 NOT NULL DEFAULT '',
-`TransmissionElecControlledID` = integer("MODEL_ID")
-`TransmissionMfrID` = integer("MODEL_ID")*/
 }
 
 object PartToBaseVehicles : Table("PART_TO_BASE_VEHICLES"){
