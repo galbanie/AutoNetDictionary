@@ -1,8 +1,12 @@
 package com.github.galbanie.models
 
 import com.github.galbanie.models.PartRelationships.references
-import org.jetbrains.exposed.sql.ReferenceOption
-import org.jetbrains.exposed.sql.Table
+import org.jetbrains.exposed.dao.EntityID
+import org.jetbrains.exposed.dao.IntEntity
+import org.jetbrains.exposed.dao.IntEntityClass
+import org.jetbrains.exposed.dao.IntIdTable
+import org.jetbrains.exposed.sql.*
+import org.jetbrains.exposed.sql.transactions.transaction
 import tornadofx.*
 
 /**
@@ -24,7 +28,7 @@ object CodeMasters : Table("codeMaster") {
     val category_id = integer("CategoryID").references(Categories.id, ReferenceOption.CASCADE)
     val subCategory_id = integer("SubCategoryID").references(SubCategories.id, ReferenceOption.CASCADE)
     val partTerminology_id = integer("PartTerminolyID").references(Parts.id, ReferenceOption.CASCADE)
-    val position_id = integer("PositionID").references(Positions.id, ReferenceOption.CASCADE)
+    //val position_id = integer("PositionID").references(Positions.id, ReferenceOption.CASCADE)
     val Revdate = datetime("RevisionDate")
 }
 
@@ -101,11 +105,36 @@ object RetiredTerms : Table("retired terms") {
     val part_id_Code = integer("PartIDCode")
 }
 
-object VersionsVCDB : Table("version") {
+object VersionsPCDB : Table("version") {
     val version_date = datetime("VersionDate")
 }
 
-object Positions : Table("positions") {
+/*object Positions : Table("positions") {
     val id = integer("PositionID").primaryKey()
     val position = varchar("Position",100)
+}*/
+
+object Positions : IntIdTable("positions","PositionID") {
+    val position = varchar("Position",100)
+}
+
+class Position(id: EntityID<Int>) : IntEntity(id) {
+    companion object : IntEntityClass<Position>(Positions)
+
+    var position by Positions.position
+}
+
+fun main(args: Array<String>) {
+    Database.connect("jdbc:mysql://localhost:3306/pcdb", driver = "com.mysql.jdbc.Driver",user = "root",password = "")
+    transaction {
+        VersionsPCDB.selectAll().forEach {
+            println(it[VersionsPCDB.version_date])
+        }
+
+        /*Positions.select { Positions.id eq 1 }.forEach {
+            println("${it[Positions.id]} - ${it[Positions.position]}")
+        }*/
+
+        println("Position: ${Position.find { Positions.id eq  1 }.joinToString {it.position}}")
+    }
 }

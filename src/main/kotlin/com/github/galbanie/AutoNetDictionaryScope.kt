@@ -22,6 +22,11 @@ class AutoNetDictionaryScope : Scope() {
                         type = ParameterType.INPUT
                         field = ""
                         value = "abs"
+                        actions.addAll(Action().apply {
+                            name = "Only issue"
+                        }, Action().apply {
+                            name = "Put Down"
+                        })
                     }
                 }
                 outputs.addAll(

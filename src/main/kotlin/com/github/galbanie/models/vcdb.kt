@@ -1,22 +1,48 @@
 package com.github.galbanie.models
 
+import org.jetbrains.exposed.dao.EntityID
+import org.jetbrains.exposed.dao.IntEntity
+import org.jetbrains.exposed.dao.IntEntityClass
+import org.jetbrains.exposed.dao.IntIdTable
+import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.ReferenceOption
 import org.jetbrains.exposed.sql.Table
+import org.jetbrains.exposed.sql.selectAll
+import org.jetbrains.exposed.sql.transactions.transaction
 
 /**
  * Created by Galbanie on 2017-09-03.
  */
 
-object BaseVehicles : Table("BaseVehicle") {
+/*object BaseVehicles : Table("BaseVehicle") {
     val id = integer("BaseVehicleID").primaryKey()
     val Year_id = integer("YearID").references(Years.id, ReferenceOption.CASCADE)
     val Make_id = integer("MakeID").references(Makes.id, ReferenceOption.CASCADE)
     val Model_id = integer("ModelID").references(Models.id, ReferenceOption.CASCADE)
+}*/
+
+object BaseVehicles : IntIdTable("BaseVehicle","BaseVehicleID") {
+    val year_id = reference("YearID",Years)
+    val make_id = integer("MakeID").references(Makes.id, ReferenceOption.CASCADE)
+    val model_id = integer("ModelID").references(Models.id, ReferenceOption.CASCADE)
 }
 
-object Years : Table("Year"){
-    val id = integer("YearID").primaryKey()
+class BaseVehicle(id: EntityID<Int>) : IntEntity(id) {
+    companion object : IntEntityClass<BaseVehicle>(BaseVehicles)
+
+    var year by Year referencedOn BaseVehicles.year_id
 }
+
+/*object Years : Table("Year"){
+    val id = integer("YearID").primaryKey()
+}*/
+
+object Years : IntIdTable("Year","YearID")
+
+class Year(id: EntityID<Int>) : IntEntity(id) {
+    companion object : IntEntityClass<Year>(Years)
+}
+
 object Makes : Table("Make"){
     val id = integer("MakeID").primaryKey()
     val name = varchar("MakeName",50)
@@ -297,7 +323,7 @@ object VehicleToWheelbases: Table("VehicleToWheelbase"){
 }
 object Vehicles: Table("Vehicle"){
     val id = integer("VehicleID").primaryKey()
-    val Vehicle_id = integer("BaseVehicleID").references(BaseVehicles.id, ReferenceOption.CASCADE)
+    //val Vehicle_id = integer("BaseVehicleID").references(BaseVehicles.id, ReferenceOption.CASCADE)
     val Wheelbase_id = integer("SubModelID").references(SubModels.id, ReferenceOption.CASCADE)
     val Region_id = integer("RegionID").references(Regions.id, ReferenceOption.CASCADE)
     val PublicationStage_id = integer("PublicationStageID").references(PublicationStages.id, ReferenceOption.CASCADE)
@@ -433,4 +459,19 @@ object Attachments: Table("Attachment"){
 object AttachmentTypes: Table("AttachmentType"){
     val id = integer("AttachmentTypeID").primaryKey()
     val name = varchar("AttachmentTypeName",20)
+}
+
+//https://github.com/JetBrains/Exposed
+
+fun main(args: Array<String>) {
+    Database.connect("jdbc:mysql://localhost:3306/vcdb", driver = "com.mysql.jdbc.Driver",user = "root",password = "")
+    transaction {
+        Versions.selectAll().forEach {
+            println(it[Versions.versionDate])
+        }
+
+        println("BaseVehicle: ${BaseVehicle.findById(1)?.year?.id}")
+
+        println("Year: ${Year.findById(2009)?.id}")
+    }
 }

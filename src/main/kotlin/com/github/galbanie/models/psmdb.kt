@@ -61,8 +61,8 @@ object Parameters : Table("PARAMETERS"){
 }
 
 object Entries : Table("Entries"){
-    val input_id = integer("INPUT").references(ParameterActions.id, ReferenceOption.CASCADE).primaryKey()
-    val output_id = integer("OUTPUT").references(ParameterActions.id, ReferenceOption.CASCADE).primaryKey()
+    val input_id = integer("INPUT").references(ParameterActions.id, ReferenceOption.CASCADE)
+    val output_id = integer("OUTPUT").references(ParameterActions.id, ReferenceOption.CASCADE)
     val valid = bool("VALID").default(false)
     val creator_id = integer("USER_ID").references(Users.id, ReferenceOption.SET_NULL)
     val reporter_id = integer("USER_ID").references(Users.id, ReferenceOption.SET_NULL)
@@ -138,7 +138,7 @@ object Applications : Table("APPLICATIONS"){
 
 object PartToBaseVehicles : Table("PART_TO_BASE_VEHICLES"){
     val id = integer("PART_TO_BASE_VEHICLE_ID").primaryKey()
-    val baseVehicle_id = integer("BASE_VEHICLE_ID").references(BaseVehicles.id, ReferenceOption.CASCADE)
+    //val baseVehicle_id = integer("BASE_VEHICLE_ID").references(BaseVehicles.id, ReferenceOption.CASCADE)
     val part_id = integer("PART_ID").references(Parts.id, ReferenceOption.CASCADE)
-    val position_id = integer("POSITION_ID").references(Positions.id, ReferenceOption.CASCADE)
+    //val position_id = integer("POSITION_ID").references(Positions.id, ReferenceOption.CASCADE)
 }
