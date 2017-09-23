@@ -22,8 +22,8 @@ object Categories : Table("categories") {
 object CodeMasters : Table("codeMaster") {
     val id = integer("CodeMasterID").primaryKey()
     val category_id = integer("CategoryID").references(Categories.id, ReferenceOption.CASCADE)
-    val subcategory_id = integer("SubCategoryID").references(SubCategories.id, ReferenceOption.CASCADE)
-    val partterminology_id = integer("PartTerminolyID").references(Parts.id, ReferenceOption.CASCADE)
+    val subCategory_id = integer("SubCategoryID").references(SubCategories.id, ReferenceOption.CASCADE)
+    val partTerminology_id = integer("PartTerminolyID").references(Parts.id, ReferenceOption.CASCADE)
     val position_id = integer("PositionID").references(Positions.id, ReferenceOption.CASCADE)
     val Revdate = datetime("RevisionDate")
 }
