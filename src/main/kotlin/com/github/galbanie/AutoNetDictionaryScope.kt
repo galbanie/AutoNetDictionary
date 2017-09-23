@@ -1,9 +1,6 @@
 package com.github.galbanie
 
-import com.github.galbanie.models.Action
-import com.github.galbanie.models.Entry
-import com.github.galbanie.models.Parameter
-import com.github.galbanie.models.Session
+import com.github.galbanie.models.*
 import com.github.galbanie.utils.ParameterType
 import javafx.beans.property.SimpleObjectProperty
 import javafx.collections.FXCollections
@@ -20,36 +17,56 @@ class AutoNetDictionaryScope : Scope() {
     val actions = FXCollections.observableArrayList<Action>()
     val entries = FXCollections.observableArrayList<Entry>(
             Entry().apply {
-                input = Parameter().apply {
-                    type = ParameterType.INPUT
-                    field = ""
-                    value = "abs"
+                input = ParameterAction().apply {
+                    parameter = Parameter().apply {
+                        type = ParameterType.INPUT
+                        field = ""
+                        value = "abs"
+                    }
                 }
-                output.addAll(
-                    Parameter().apply {
-                        type = ParameterType.OUTPUT
-                        field = "BrakeABS"
-                        value = "4-wheelABS"
+                outputs.addAll(
+                    ParameterAction().apply {
+                        parameter = Parameter().apply{
+                            type = ParameterType.OUTPUT
+                            field = "BrakeABS"
+                            value = "4-wheelABS"
+                        }
                     },
-                    Parameter().apply {
-                        type = ParameterType.OUTPUT
-                        field = "BrakeABS"
-                        value = "2-wheelABS"
+                    ParameterAction().apply {
+                        parameter = Parameter().apply{
+                            type = ParameterType.OUTPUT
+                            field = "BrakeABS"
+                            value = "2-wheelABS"
+                        }
                     }
                 )
             },
             Entry().apply {
-                input = Parameter().apply {
-                    type = ParameterType.INPUT
-                    field = "Product Line"
-                    value = "Brake Drum"
-                }
-                output.addAll(
-                    Parameter().apply {
-                        type = ParameterType.OUTPUT
-                        field = "RearBrakeType"
-                        value = "Drum"
+                input = ParameterAction().apply {
+                    parameter = Parameter().apply {
+                        type = ParameterType.INPUT
+                        field = "Note"
+                        value = "drum"
                     }
+                }
+                outputs.addAll(
+                        ParameterAction().apply {
+                            parameter = Parameter().apply{
+                                type = ParameterType.OUTPUT
+                                field = "Product Line"
+                                value = "Brake Drum"
+                            }
+                            actions.add(Action().apply {
+                                name = "Only issue"
+                            })
+                        },
+                        ParameterAction().apply {
+                            parameter = Parameter().apply{
+                                type = ParameterType.OUTPUT
+                                field = "RearBrakeType"
+                                value = "Drum"
+                            }
+                        }
                 )
             }
     )

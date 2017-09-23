@@ -50,6 +50,7 @@ object UsersRoles : Table("USERS_ROLES"){
 object Actions : Table("ACTIONS"){
     val id = integer("ACTION_ID").primaryKey().autoIncrement()
     val actionName = varchar("ACTION_NAME", 255).uniqueIndex()
+    val priority = enumeration("PRIORITY", Priority::class.java)
 }
 
 object Parameters : Table("PARAMETERS"){
@@ -73,7 +74,6 @@ object ParameterActions : Table("ACTIONS_PARAMETERS"){
     val id = integer("PARAMETER_ACTIONS_ID").primaryKey().autoIncrement()
     val parameter_id = integer("PARAMETER_ID").references(Parameters.id, ReferenceOption.CASCADE)
     val action_id = integer("ACTION_ID").references(Actions.id, ReferenceOption.CASCADE)
-    val priority = enumeration("PRIORITY", Priority::class.java)
 }
 
 object Applications : Table("APPLICATIONS"){

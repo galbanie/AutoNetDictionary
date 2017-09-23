@@ -9,11 +9,11 @@ import tornadofx.*
  * Created by Galbanie on 2017-08-31.
  */
 class Entry {
-    val inputProperty = SimpleObjectProperty<Parameter>()
+    val inputProperty = SimpleObjectProperty<ParameterAction>()
     var input by inputProperty
 
-    val outputProperty = SimpleListProperty<Parameter>(FXCollections.observableArrayList())
-    var output by outputProperty
+    val outputsProperty = SimpleListProperty<ParameterAction>(FXCollections.observableArrayList())
+    var outputs by outputsProperty
 
     val isConfirmProperty = SimpleBooleanProperty()
     var isConfirm by isConfirmProperty
@@ -33,7 +33,7 @@ class Entry {
 
 class EntryModel : ItemViewModel<Entry>() {
     val input = bind(Entry::inputProperty)
-    val output = bind(Entry::outputProperty)
+    val output = bind(Entry::outputsProperty)
     val isConfirm = bind(Entry::isConfirmProperty)
     val creator = bind(Entry::creatorProperty)
     val reporter = bind(Entry::reporterProperty)
