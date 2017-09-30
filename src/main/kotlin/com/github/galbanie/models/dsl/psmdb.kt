@@ -1,4 +1,4 @@
-package com.github.galbanie.models.dsl
+package com.github.galbanie.models.dsl.psmdb
 
 import com.github.galbanie.utils.ParameterType
 import com.github.galbanie.utils.Priority
