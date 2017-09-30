@@ -65,12 +65,18 @@ object Parameters : Table("PARAMETERS"){
 
 object Entries : Table("Entries"){
     val input_id = integer("INPUT").references(ParameterActions.id, ReferenceOption.CASCADE)
-    val output_id = integer("OUTPUT").references(ParameterActions.id, ReferenceOption.CASCADE)
+    val constraintOutput_id = integer("CONSTRAINT_OUTPUT_ID").references(ConstraintOutputs.id, ReferenceOption.CASCADE)
     val valid = bool("VALID").default(false)
     val creator_id = integer("USER_ID").references(Users.id, ReferenceOption.SET_NULL)
     val reporter_id = integer("USER_ID").references(Users.id, ReferenceOption.SET_NULL)
     val dateCreation = date("DATE_CREATION").nullable()
     val dateModified = date("DATE_MODIFIED").nullable()
+}
+
+object ConstraintOutputs : Table("CONSTRAINT_OUTPUTS"){
+    val id = integer("CONSTRAINT_OUTPUT_ID").primaryKey().autoIncrement()
+    val output_id = integer("OUTPUT").references(ParameterActions.id, ReferenceOption.CASCADE)
+    val constraint_id = integer("CONSTRAINT").references(ParameterActions.id, ReferenceOption.CASCADE)
 }
 
 object ParameterActions : Table("ACTIONS_PARAMETERS"){
