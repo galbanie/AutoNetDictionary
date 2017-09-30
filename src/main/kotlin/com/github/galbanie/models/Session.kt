@@ -9,6 +9,7 @@ import tornadofx.*
 /**
  * Created by Galbanie on 2017-08-24.
  */
+
 class Session {
     val idProperty = SimpleIntegerProperty()
     var id by idProperty

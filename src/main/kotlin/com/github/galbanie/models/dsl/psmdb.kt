@@ -1,12 +1,14 @@
-package com.github.galbanie.models
+package com.github.galbanie.models.dsl
 
 import com.github.galbanie.utils.ParameterType
 import com.github.galbanie.utils.Priority
 import org.jetbrains.exposed.sql.ReferenceOption
 import org.jetbrains.exposed.sql.Table
+import com.github.galbanie.models.dsl.vcdb.*
+import com.github.galbanie.models.dsl.pcdb.*
 
 /**
- * Created by Galbanie on 2017-09-03.
+ * Created by Galbanie on 2017-09-30.
  */
 
 object Sessions : Table("SESSIONS"){
@@ -77,7 +79,7 @@ object ParameterActions : Table("ACTIONS_PARAMETERS"){
     val action_id = integer("ACTION_ID").references(Actions.id, ReferenceOption.CASCADE)
 }
 
-/*object Applications : Table("APPLICATIONS"){
+object Applications : Table("APPLICATIONS"){
     val applications_id = integer("APPLICATION_ID").primaryKey().autoIncrement()
     val partToBaseVehicle_id = integer("PART_BASE_VEHICLE_ID").references(PartToBaseVehicles.id, ReferenceOption.SET_NULL)
     val vehicleType_id = integer("VEHICLE_TYPE_ID").references(VehicleTypes.id, ReferenceOption.SET_NULL)
@@ -135,11 +137,11 @@ object ParameterActions : Table("ACTIONS_PARAMETERS"){
     val assetFileName = varchar("ASSET_ITEM_REF",255)
     val transmissionElecControlled_id = integer("TRANSMISSION_ELEC_CONTROLLED_ID").references(ElecControlleds.id, ReferenceOption.SET_NULL)
     val transmissionMFR_id = integer("TRANSMISSION_MFR_ID").references(TransmissionMfrs.id, ReferenceOption.SET_NULL)
-}*/
+}
 
 object PartToBaseVehicles : Table("PART_TO_BASE_VEHICLES"){
     val id = integer("PART_TO_BASE_VEHICLE_ID").primaryKey()
     //val baseVehicle_id = integer("BASE_VEHICLE_ID").references(BaseVehicles.id, ReferenceOption.CASCADE)
-    val part_id = integer("PART_ID").references(Parts.id, ReferenceOption.CASCADE)
+    //val part_id = integer("PART_ID").references(Parts.id, ReferenceOption.CASCADE)
     //val position_id = integer("POSITION_ID").references(Positions.id, ReferenceOption.CASCADE)
 }
