@@ -269,7 +269,7 @@ class TransmissionMfrCode(id: EntityID<Int>) : IntEntity(id) {
     var transmissionMfrCode by TransmissionMfrCodes.name
 }
 
-object TransmissionNumSpeeds : IntIdTable("transmissionnumspeeds"){
+object TransmissionNumSpeeds : IntIdTable("transmissionnumspeeds","TransmissionNumSpeedsID"){
     val numbSpeed = varchar("TransmissionNumSpeeds",3)
 }
 
@@ -310,7 +310,7 @@ object BedTypes : IntIdTable("bedtype","BedTypeID"){
 
 class BedType(id: EntityID<Int>) : IntEntity(id) {
     companion object : IntEntityClass<BedType>(BedTypes)
-    var bedType by BedLengths.name
+    var bedType by BedTypes.name
 }
 
 object BedConfigs : IntIdTable("bedconfig","BedConfigID"){
@@ -340,7 +340,7 @@ object BrakeConfigs : IntIdTable("brakeconfig","BrakeConfigID"){
     val frontBrakeType_id = reference("FrontBrakeTypeID",BrakeTypes)
     val rearBrakeType_id = reference("RearBrakeTypeID",BrakeTypes)
     val brakeSystem_id = reference("BrakeSystemID",BrakeSystems)
-    val brakeAbs_id = reference("BrakeABSID", BrakeAbs)
+    val brakeAbs_id = reference("BrakeABSID", Brake_Abs)
 }
 
 class BrakeConfig(id: EntityID<Int>) : IntEntity(id) {
@@ -349,7 +349,7 @@ class BrakeConfig(id: EntityID<Int>) : IntEntity(id) {
     var frontBrakeType by BrakeType referencedOn BrakeConfigs.frontBrakeType_id
     var rearBrakeType by BrakeType referencedOn BrakeConfigs.rearBrakeType_id
     var brakeSystem by BrakeSystem referencedOn BrakeConfigs.brakeSystem_id
-    var brakeAbs by BrakeABS referencedOn BrakeConfigs.brakeAbs_id
+    var brakeAbs by BrakeAbs referencedOn BrakeConfigs.brakeAbs_id
 }
 
 object BrakeSystems : IntIdTable("brakesystem","BrakeSystemID" ){
@@ -369,13 +369,13 @@ class BrakeType(id: EntityID<Int>) : IntEntity(id) {
     var brakeType by BrakeTypes.name
 }
 
-object BrakeAbs : IntIdTable("brakeabs", "BrakeABSID"){
+object Brake_Abs : IntIdTable("brakeabs", "BrakeABSID"){
     val name = varchar("BrakeABSName",30)
 }
 
-class BrakeABS(id: EntityID<Int>) : IntEntity(id) {
-    companion object : IntEntityClass<BrakeABS>(BrakeAbs)
-    var brakeAbs by BrakeAbs.name
+class BrakeAbs(id: EntityID<Int>) : IntEntity(id) {
+    companion object : IntEntityClass<BrakeAbs>(Brake_Abs)
+    var brake_Abs by Brake_Abs.name
 }
 
 object SpringTypes : IntIdTable("springtype","SpringTypeID"){
@@ -416,7 +416,7 @@ class SteeringSystem(id: EntityID<Int>) : IntEntity(id) {
 }
 
 object Regions : IntIdTable("region","RegionID"){
-    val parentId = reference("ParentID",Regions)
+    val parentId = reference("ParentID",Regions).nullable()
     val name = varchar("RegionName",30)
     val nameAbbr = varchar("RegionAbbr",3)
 }
@@ -425,7 +425,7 @@ class Region(id: EntityID<Int>) : IntEntity(id) {
     companion object : IntEntityClass<Region>(Regions)
     var regionName by Regions.name
     var regionNameAbbr by Regions.nameAbbr
-    var parent_id by Region referencedOn  Regions.parentId
+    var parent_id by Region optionalReferencedOn  Regions.parentId
 }
 
 object EngineVersions: IntIdTable("engineversion","EngineVersionID" ){
@@ -901,6 +901,34 @@ fun main(args: Array<String>) {
     transaction {
         println("BaseVehicle: ${BaseVehicle.findById(1)?.year?.id}")
         println("Year: ${Year.findById(2009)?.id}")
-        println("DriveType: ${DriveType.findById(1)?.id}")
+        println("Make: ${Make.findById(2)?.make}")
+        println("DriveType: ${DriveType.findById(5)?.driveType}")
+        println("VehicleType: ${VehicleType.findById(5)?.vehicleTypeGroup?.vehicleTypeGroup}")
+        println("Model: ${Model.findById(1)?.model}")
+        println("SubModel: ${SubModel.findById(1)?.subModel}")
+        println("Aspiration: ${Aspiration.findById(2)?.aspiration}")
+        println("BrakeConfig: ${BrakeConfig.findById(1)?.frontBrakeType?.id}")
+        println("BrakeConfig: ${BrakeConfig.findById(1)?.brakeSystem?.brakeSystem}")
+        println("BrakeConfig: ${BrakeConfig.findById(1)?.brakeAbs?.brake_Abs}")
+        println("BedType: ${BedType.findById(9)?.bedType}")
+        println("TransNumSpeed: ${TransmissionNumSpeed.findById(10)?.transmissionNumSpeed}")
+        println("ChangesReasons: ${ChangeReason.findById(2)?.name}")
+        println("TransmissionBase: ${TransmissionBase.findById(1)?.transmissionControlType?.transmissionControlType}")
+        println("TransmissionBase: ${TransmissionBase.findById(1)?.transmissionType?.transmissionType?.length}")
+        println("Transmission: ${Transmission.findById(2)?.transmissionMfrCode?.transmissionMfrCode}")
+        println("Transmission: ${Transmission.findById(2)?.transmissionElecControlled?.name}")
+        println("Engine: ${Vehicle.findById(1)?.region?.regionNameAbbr}")
+        println("Vehicle: ${VehicleToBedConfig.findById(1)?.bedConfig?.bedType?.bedType}")
+        println("Changes: ${Change.findById(69237)?.versionDate}")
+        println("Engine: ${Vehicle.findById(1)?.publicationDate}")
+        println("SpringTypeConfig: ${SpringTypeConfig.findById(1)?.rearSpringType?.springType}")
+        println("Valve: ${Valve.findById(1)?.valvesPerEngine}")
+        println("ChangeAttri: ${ChangeAttributeState.findById(1)?.name}")
+        println("FuelType: ${FuelDeliveryConfig.findById(1)?.fuelDeliveryType?.fuelDeliveryType}")
+        println("FuelType: ${FuelDeliveryConfig.findById(1)?.fuelSystemControlType?.fuelSystemControlType}")
+        println("Region: ${Region.findById(1)?.parent_id?.regionNameAbbr}")
+        println("Region: ${Region.findById(1)?.regionNameAbbr}")
+        println("VehicleToSteeringConfig: ${VehicleToSteeringConfig.findById(1)?.vehicle?.baseVehicle?.make?.make?.length}")
+        println("vehicleToBrake: ${VehicleToBrakeConfig.findById(187)?.brakeConfig?.brakeAbs?.brake_Abs}")
     }
 }

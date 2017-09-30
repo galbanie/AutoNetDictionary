@@ -8,6 +8,7 @@ import org.jetbrains.exposed.sql.Table
 /**
  * Created by Galbanie on 2017-09-03.
  */
+
 object Sessions : Table("SESSIONS"){
     val id = integer("SESSION_ID").primaryKey().autoIncrement()
     val user_id = integer("USER_ID").references(Users.id, ReferenceOption.CASCADE)
