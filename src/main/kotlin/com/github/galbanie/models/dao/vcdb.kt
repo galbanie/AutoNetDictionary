@@ -425,7 +425,7 @@ class Region(id: EntityID<Int>) : IntEntity(id) {
     companion object : IntEntityClass<Region>(Regions)
     var regionName by Regions.name
     var regionNameAbbr by Regions.nameAbbr
-    var parent_id by Region referencedOn Regions.parentId
+    var parent_id by Region referencedOn  Regions.parentId
 }
 
 object EngineVersions: IntIdTable("engineversion","EngineVersionID" ){
