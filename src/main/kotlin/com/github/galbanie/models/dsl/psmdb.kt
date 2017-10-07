@@ -2,9 +2,10 @@ package com.github.galbanie.models.dsl.psmdb
 
 import com.github.galbanie.utils.ParameterType
 import com.github.galbanie.utils.Priority
-import org.jetbrains.exposed.sql.ReferenceOption
-import org.jetbrains.exposed.sql.Table
 import com.github.galbanie.models.dsl.vcdb.*
+import org.jetbrains.exposed.sql.*
+import org.jetbrains.exposed.sql.transactions.transaction
+
 //import com.github.galbanie.models.dsl.pcdb.*
 
 /**
@@ -86,9 +87,9 @@ object ParameterActions : Table("ACTIONS_PARAMETERS"){
     val action_id = integer("ACTION_ID").references(Actions.id, ReferenceOption.CASCADE)
 }
 
-object Applications : Table("APPLICATIONS"){
+/*object Applications : Table("APPLICATIONS"){
     val applications_id = integer("APPLICATION_ID").primaryKey().autoIncrement()
-    val partToBaseVehicle_id = integer("PART_BASE_VEHICLE_ID").references(PartToBaseVehicles.id, ReferenceOption.SET_NULL)
+    //val partToBaseVehicle_id = integer("PART_BASE_VEHICLE_ID").references(PartToBaseVehicles.id, ReferenceOption.SET_NULL)
     val vehicleType_id = integer("VEHICLE_TYPE_ID").references(VehicleTypes.id, ReferenceOption.SET_NULL)
     val model_id = integer("MODEL_ID").references(Models.id, ReferenceOption.SET_NULL)
     val subModel_id = integer("SUB_MODEL_ID").references(SubModels.id, ReferenceOption.SET_NULL)
@@ -141,9 +142,69 @@ object Applications : Table("APPLICATIONS"){
     val powerOutput_id = integer("POWER_OUTPUTS_ID").references(PowerOutputs.id, ReferenceOption.SET_NULL)
     val assetLogicalName = varchar("ASSET_LOGICAL_NAME",255)
     val assetItemRef = varchar("ASSET_ITEM_REF",255)
-    val assetFileName = varchar("ASSET_ITEM_REF",255)
+    val assetFileName = varchar("ASSET_FILE_NAME",255)
     val transmissionElecControlled_id = integer("TRANSMISSION_ELEC_CONTROLLED_ID").references(ElecControlleds.id, ReferenceOption.SET_NULL)
     val transmissionMFR_id = integer("TRANSMISSION_MFR_ID").references(TransmissionMfrs.id, ReferenceOption.SET_NULL)
+}*/
+
+object Applications : Table("APPLICATIONS"){
+    val applications_id = integer("APPLICATION_ID").primaryKey().autoIncrement()
+    //val partToBaseVehicle_id = integer("PART_BASE_VEHICLE_ID").references(PartToBaseVehicles.id, ReferenceOption.SET_NULL)
+    val vehicleType_id = integer("VEHICLE_TYPE_ID")
+    val model_id = integer("MODEL_ID")
+    val subModel_id = integer("SUB_MODEL_ID")
+    val mfrBodyCode_id = integer("MFR_BODY_CODE_ID")
+    val bodyStyleConfig_id = integer("BODY_STYLE_CONFIG_ID")
+    val bodyNumDoors_id = integer("BODY_NUM_DOORS_ID")
+    val bodyType_id = integer("BODY_TYPE_ID")
+    val driveType_id = integer("DRIVE_TYPE_ID")
+    val engineBase_id = integer("ENGINE_BASE_ID")
+    val engineDesignation_id = integer("ENGINE_DESIGNATION_ID")
+    val engineVIN_id = integer("ENGINE_VIN_ID")
+    val engineMfr_id = integer("ENGINE_MFR_ID")
+    val fuelDeliveryConfig_id = integer("FUEL_DELIVERY_CONFIG_ID")
+    val fuelDeliveryType_id = integer("FUEL_DELIVERY_TYPE_ID")
+    val fuelDeliverySubType_id = integer("FUEL_DELIVERY_SUBTYPE_ID")
+    val fuelSysControlType_id = integer("FUEL_SYS_CONTROL_TYPE_ID")
+    val fuelSystemDesign_id = integer("FUEL_SYSTEM_DESIGN_ID")
+    val aspiration_id = integer("ASPIRATION_ID")
+    val cylHeadType_id = integer("CYL_HEAD_TYPE_ID")
+    val fuelType_id = integer("FUEL_TYPE_ID")
+    val ignitionSystemType_id = integer("IGNITION_SYSTEM_TYPE_ID")
+    val transmissionType_id = integer("TRANSMISSION_TYPE_ID")
+    val transmissionBase_id = integer("TRANSMISSION_BASE_ID")
+    val transmissionControlType_id = integer("TRANSMISSION_CONTROL_TYPE_ID")
+    val transmissionMfrCode_id = integer("TRANSMISSION_MFR_CODE_ID")
+    val transmissionNumSpeeds_id = integer("TRANSMISSION_NUM_SPEEDS_ID")
+    val bedLength_id = integer("BED_LENGTH_ID")
+    val bedType_id = integer("BED_TYPE_ID")
+    val bedConfig_id = integer("BED_CONFIG_ID")
+    val wheelBase_id = integer("WHEEL_BASE_ID")
+    val frontBrakeType_id = integer("FRONT_BRAKE_TYPE_ID")
+    val rearBrakeType_id = integer("REAR_BRAKE_TYPE_ID")
+    val frontSpringType_id = integer("FRONT_SPRING_TYPE_ID")
+    val brakeSystem_id = integer("BRAKE_SYSTEM_ID")
+    val brakeType_id = integer("BRAKE_TYPE_ID")
+    val brakeABS_id = integer("BRAKE_ABS_ID")
+    val rearSpringType_id = integer("REAR_SPRING_TYPE_ID")
+    val steeringType_id = integer("STEERING_TYPE_ID")
+    val steeringSystem_id = integer("STEERING_SYSTEM_ID")
+    //val restraintType_id = integer("MODEL_ID")
+    val region_id = integer("REGION_ID")
+    val engineVersion_id = integer("ENGINE_VERSION_ID")
+    val engineValves_id = integer("ENGINE_VALVES_ID")
+    val note = text("NOTE")
+    val dateAdded = date("DATE_ADDED")
+    val dateModified = date("DATE_MODIFIED")
+    val isValidable = bool("IS_VALIDABLE")
+    val quantity = integer("QUANTITY")
+    val upSizeTs = integer("UPSIZETS")
+    val powerOutput_id = integer("POWER_OUTPUTS_ID")
+    val assetLogicalName = varchar("ASSET_LOGICAL_NAME",255)
+    val assetItemRef = varchar("ASSET_ITEM_REF",255)
+    val assetFileName = varchar("ASSET_FILE_NAME",255)
+    val transmissionElecControlled_id = integer("TRANSMISSION_ELEC_CONTROLLED_ID")
+    val transmissionMFR_id = integer("TRANSMISSION_MFR_ID")
 }
 
 object PartToBaseVehicles : Table("PART_TO_BASE_VEHICLES"){
@@ -151,4 +212,15 @@ object PartToBaseVehicles : Table("PART_TO_BASE_VEHICLES"){
     //val baseVehicle_id = integer("BASE_VEHICLE_ID").references(BaseVehicles.id, ReferenceOption.CASCADE)
     //val part_id = integer("PART_ID").references(Parts.id, ReferenceOption.CASCADE)
     //val position_id = integer("POSITION_ID").references(Positions.id, ReferenceOption.CASCADE)
+}
+
+fun main(args: Array<String>) {
+    Database.connect("jdbc:mysql://localhost:3306/psmdb", driver = "com.mysql.jdbc.Driver",user = "root",password = "")
+    transaction {
+        SchemaUtils.create(Users,Roles,UsersRoles,Actions,Parameters,ParameterActions,Sessions,HistoricSessions,Applications)
+
+        Users.selectAll().forEach {
+            println("${it[Users.id]} - ${it[Users.username]} - ${it[Users.email]}")
+        }
+    }
 }
