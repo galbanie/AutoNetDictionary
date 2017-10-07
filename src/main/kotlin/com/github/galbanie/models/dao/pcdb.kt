@@ -217,7 +217,7 @@ class Position(id: EntityID<Int>) : IntEntity(id) {
 }
 
 fun main(args: Array<String>) {
-    Database.connect("jdbc:mysql://localhost:3306/pcdb", driver = "com.mysql.jdbc.Driver",user = "root",password = "eurice")
+    Database.connect("jdbc:mysql://localhost:3306/pcdb", driver = "com.mysql.jdbc.Driver",user = "root",password = "")
     transaction {
         /*Positions.select { Positions.id eq 1 }.forEach {
             println("${it[Positions.id]} - ${it[Positions.position]}")

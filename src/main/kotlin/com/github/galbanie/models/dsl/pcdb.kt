@@ -129,7 +129,7 @@ object Positions : Table("positions") {
 
 
 fun main(args: Array<String>) {
-    Database.connect("jdbc:mysql://localhost:3306/pcdb", driver = "com.mysql.jdbc.Driver",user = "root",password = "eurice")
+    Database.connect("jdbc:mysql://localhost:3306/pcdb", driver = "com.mysql.jdbc.Driver",user = "root",password = "")
     transaction {
         Parts.select { Parts.id eq 1 }.forEach {
             println("${it[Parts.id]} - ${it[Parts.name]}")
