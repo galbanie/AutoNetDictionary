@@ -11,12 +11,6 @@ import org.jetbrains.exposed.sql.transactions.transaction
  * Created by Galbanie on 2017-09-30.
  */
 
-/*object Alias : Table("alias") {
-    val id = integer("AliasID").primaryKey()
-    val name = varchar("AliasName",100)
-}
-*/
-
 
 object Alias : IntIdTable("alias","ALiasID"){
     val name = varchar("AliasName",100)
@@ -28,11 +22,6 @@ class Alias_(id: EntityID<Int>) : IntEntity(id) {
 }
 
 
-/*object Categories : Table("categories") {
-    val id = integer("CategoryID").primaryKey()
-    val name = varchar("CategoryName",100)
-}*/
-
 object Categories : IntIdTable("categories","CategoryID"){
     val name = varchar("CategoryName",100)
 }
@@ -43,15 +32,6 @@ class Category(id: EntityID<Int>) : IntEntity(id) {
     var name by Categories.name
 }
 
-
-/*object CodeMasters : Table("codeMaster") {
-    val id = integer("CodeMasterID").primaryKey()
-    val category_id = integer("CategoryID").references(Categories.id, ReferenceOption.CASCADE)
-    val subCategory_id = integer("SubCategoryID").references(SubCategories.id, ReferenceOption.CASCADE)
-    val partTerminology_id = integer("PartTerminolyID").references(Parts.id, ReferenceOption.CASCADE)
-    val position_id = integer("PositionID").references(Positions.id, ReferenceOption.CASCADE)
-    val Revdate = datetime("RevisionDate")
-}*/
 
 object CodeMasters : IntIdTable("codeMatser","CodeMasterID"){
     val revdate = datetime("RevisionDate")
@@ -71,15 +51,6 @@ class codeMaster(id: EntityID<Int>) : IntEntity(id) {
     var position by Position referencedOn Positions.id
 }
 
-
-/*object Parts : Table("parts") {
-    val id = integer("PartTerminolyID").primaryKey()
-    val name = varchar("PartTerminologyName", 100)
-    val partdescription_id = integer("PartDescriptionID").references(PartDescriptions.id, ReferenceOption.CASCADE)
-    val Revdate = datetime("RevDate")
-}
-*/
-
 object Parts : IntIdTable("parts","PartTerminologyID"){
     val revdate = datetime("RevDate")
     val name = varchar("PartTerminologyName",100)
@@ -94,13 +65,6 @@ class Part(id: EntityID<Int>) : IntEntity(id) {
     var partdescription by Partdescription referencedOn PartDescriptions.id
 }
 
-
-/*object PartDescriptions : Table("partsdescription") {
-    val id = integer("PartDescriptionID").primaryKey()
-    val name = varchar("PartsDescription", 100)
-
-}*/
-
 object PartDescriptions : IntIdTable("partsdescription","PartDescriptionID"){
     val name = varchar("PartsDescription",100)
 
@@ -111,22 +75,19 @@ class Partdescription(id: EntityID<Int>) : IntEntity(id) {
     var name by PartDescriptions.name
 }
 
-
+// DSL, To Delete but just a reminder
 /*object PartRelationships : Table("partsrelationship") {
     val partterminology_id = integer("PartTerminolyID").references(Parts.id, ReferenceOption.CASCADE)
     val relatedpartterminology_id = integer("RelatedPartTerminologyID").references(Parts.id, ReferenceOption.CASCADE)
-
 }*/
 
-// A voir, clés composées (To Do)
+// DAO refers to DSL, A voir, clés composées (To Do)
 
 object PartRelationships : IntIdTable("parts","PartTerminologyID"){
     val revdate = datetime("RevDate")
     val name = varchar("PartTerminologyName",100)
     val partdescription_id = reference("PartDescriptionID", PartDescriptions)
-
 }
-
 
 class Partrelationship(id: EntityID<Int>) : IntEntity(id) {
     companion object : IntEntityClass<Partrelationship>(PartRelationships)
@@ -136,6 +97,7 @@ class Partrelationship(id: EntityID<Int>) : IntEntity(id) {
 }
 
 // A voir, clés composées (To Do)
+
 /*object PartSupersessions : Table("partssupersession") {
     val oldpartterminology_id = integer("OldPartTerminologyID").references(Parts.id, ReferenceOption.CASCADE)
     val newpartterminology_id = integer("NewPartTerminologyID").references(Parts.id, ReferenceOption.CASCADE)
@@ -153,16 +115,12 @@ object PartSupersessions : IntIdTable("partssupersession","PartTerminologyID"){
     val oldpartterminology_name = reference("OldPartTerminologyName", Parts.name)
     val newpartterminology_name = reference("NewPartTerminologyName", Parts.name)
 }
-
-
 class PartSupersession(id: EntityID<Int>) : IntEntity(id) {
     companion object : IntEntityClass<PartSupersession>(PartSupersessions)
 
     var oldpartterminology by Part referencedOn Parts.id
     var newpartterminology by Part referencedOn Parts.id
-
 }
-
 
 // A voir, clés composées (To Do)
 /*object PartToAlias : Table("partstoalias") {
@@ -176,14 +134,6 @@ class PartSupersession(id: EntityID<Int>) : IntEntity(id) {
     val use_id = integer("UseID").references(Uses.id, ReferenceOption.CASCADE)
 }*/
 
-
-
-/*object Uses : Table ("use") {
-    val id = integer("UseID").primaryKey()
-    val name = varchar ("UseDescription", 100)
-}*/
-
-
 object Uses : IntIdTable("use","UseID"){
     val name = varchar("UseDescription",100)
 }
@@ -193,14 +143,6 @@ class Use(id: EntityID<Int>) : IntEntity(id) {
     var name by Uses.name
 }
 
-
-/*object SubCategories : Table("subcategories") {
-    val id = integer("SubCategoryID").primaryKey()
-    val name = varchar ("SubCategoryName", 100)
-
-}*/
-
-
 object SubCategories : IntIdTable("subcategories","SubCategoryID"){
     val name = varchar("SubCategoryName",100)
 }
@@ -209,24 +151,6 @@ class Subcategory(id: EntityID<Int>) : IntEntity(id) {
     companion object : IntEntityClass<Subcategory>(SubCategories)
     var name by SubCategories.name
 }
-
-
-
-/*object PCDBChanges : Table("pcdbchanges") {
-    val codemaster_id = integer("CodeMasterID")
-    val category_id = integer("CategoryID")
-    val category_name = varchar ("CategoryName", 100)
-    val subcategory_id = integer("SubCategoryID")
-    val subcategory_name = varchar("SubCtageoryName", 100)
-    val parterminology_id = integer("PartTerminologyID")
-    val parterminology_name = varchar("PartTerminologyName", 100)
-    val use_id = integer("UseID")
-    val usedecription = varchar("UseDescription", 100)
-    val position_id = integer("PositionID")
-    val position_name = varchar("Position", 100)
-    val revdate = datetime("RevDate")
-    val action = varchar("Action", 20)
-}*/
 
 object PCDBChanges : IntIdTable("pcdbchanges"){
     val codemaster_id = integer("CodeMasterID")
@@ -261,13 +185,6 @@ class Pcbdchange(id: EntityID<Int>) : IntEntity(id) {
     val revdate by PCDBChanges.revdate
     val action by PCDBChanges.action
 }
-
-
-/*object RetiredTerms : Table("retired terms") {
-    val name = varchar ("PartName", 255)
-    val part_id_code = integer("PartIDCode")
-}*/
-
 object RetireDTerms : IntIdTable("retired terms"){
     val name = varchar("PartName",255)
     val part_id_code = integer("PartIDCode")
@@ -279,12 +196,6 @@ class Retiredterm(id: EntityID<Int>) : IntEntity(id) {
     var part_id_code by RetireDTerms.part_id_code
 }
 
-
-
-/*object VersionsPCDB : Table("version") {
-    val version_date = datetime("VersionDate")
-}*/
-
 object VersionsPCDB : IntIdTable("version"){
     val version_date = datetime("VersionDate")
 }
@@ -294,12 +205,6 @@ class Versionpcdb(id: EntityID<Int>) : IntEntity(id) {
     var version_date by VersionsPCDB.version_date
 
 }
-
-
-/*object Positions : Table("positions") {
-    val id = integer("PositionID").primaryKey()
-    val position = varchar("Position",100)
-}*/
 
 object Positions : IntIdTable("positions","PositionID") {
     val position = varchar("Position",100)
@@ -312,7 +217,7 @@ class Position(id: EntityID<Int>) : IntEntity(id) {
 }
 
 fun main(args: Array<String>) {
-    Database.connect("jdbc:mysql://localhost:3306/pcdb", driver = "com.mysql.jdbc.Driver",user = "root",password = "")
+    Database.connect("jdbc:mysql://localhost:3306/pcdb", driver = "com.mysql.jdbc.Driver",user = "root",password = "eurice")
     transaction {
         /*Positions.select { Positions.id eq 1 }.forEach {
             println("${it[Positions.id]} - ${it[Positions.position]}")
