@@ -5,7 +5,7 @@ import com.github.galbanie.utils.Priority
 import org.jetbrains.exposed.sql.ReferenceOption
 import org.jetbrains.exposed.sql.Table
 import com.github.galbanie.models.dsl.vcdb.*
-import com.github.galbanie.models.dsl.pcdb.*
+//import com.github.galbanie.models.dsl.pcdb.*
 
 /**
  * Created by Galbanie on 2017-09-30.
@@ -65,7 +65,8 @@ object Parameters : Table("PARAMETERS"){
 
 object Entries : Table("Entries"){
     val input_id = integer("INPUT").references(ParameterActions.id, ReferenceOption.CASCADE)
-    val constraintOutput_id = integer("CONSTRAINT_OUTPUT_ID").references(ConstraintOutputs.id, ReferenceOption.CASCADE)
+    val constraintOutput_id = integer("CONSTRAINT_OUTPUTS").references(ParameterActions.id, ReferenceOption.CASCADE)
+    //val constraintOutput_id = integer("CONSTRAINT_OUTPUT_ID").references(ConstraintOutputs.id, ReferenceOption.CASCADE)
     val valid = bool("VALID").default(false)
     val creator_id = integer("USER_ID").references(Users.id, ReferenceOption.SET_NULL)
     val reporter_id = integer("USER_ID").references(Users.id, ReferenceOption.SET_NULL)
@@ -73,11 +74,11 @@ object Entries : Table("Entries"){
     val dateModified = date("DATE_MODIFIED").nullable()
 }
 
-object ConstraintOutputs : Table("CONSTRAINT_OUTPUTS"){
+/*object ConstraintOutputs : Table("CONSTRAINT_OUTPUTS"){
     val id = integer("CONSTRAINT_OUTPUT_ID").primaryKey().autoIncrement()
     val output_id = integer("OUTPUT").references(ParameterActions.id, ReferenceOption.CASCADE)
     val constraint_id = integer("CONSTRAINT").references(ParameterActions.id, ReferenceOption.CASCADE)
-}
+}*/
 
 object ParameterActions : Table("ACTIONS_PARAMETERS"){
     val id = integer("PARAMETER_ACTIONS_ID").primaryKey().autoIncrement()

@@ -5,5 +5,6 @@ package com.github.galbanie.utils
  */
 enum class ParameterType {
     INPUT,
-    OUTPUT
+    OUTPUT,
+    CONSTRAINT
 }

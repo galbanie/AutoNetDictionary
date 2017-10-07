@@ -12,8 +12,8 @@ class Entry {
     val inputProperty = SimpleObjectProperty<ParameterAction>()
     var input by inputProperty
 
-    val outputsProperty = SimpleListProperty<ParameterAction>(FXCollections.observableArrayList())
-    var outputs by outputsProperty
+    val constraintOutputsProperty = SimpleListProperty<ParameterAction>(FXCollections.observableArrayList())
+    var constraintOutputs by constraintOutputsProperty
 
     val isConfirmProperty = SimpleBooleanProperty()
     var isConfirm by isConfirmProperty
@@ -33,7 +33,7 @@ class Entry {
 
 class EntryModel : ItemViewModel<Entry>() {
     val input = bind(Entry::inputProperty)
-    val output = bind(Entry::outputsProperty)
+    val output = bind(Entry::constraintOutputsProperty)
     val isConfirm = bind(Entry::isConfirmProperty)
     val creator = bind(Entry::creatorProperty)
     val reporter = bind(Entry::reporterProperty)

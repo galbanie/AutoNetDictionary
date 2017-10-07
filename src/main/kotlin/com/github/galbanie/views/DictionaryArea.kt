@@ -52,7 +52,30 @@ class DictionaryArea : View("Dictionary") {
                         }*/
                         graphic = when (it) {
                             is ParameterAction -> hbox(10) {
+                                //if(it.parameter.type.equals(ParameterType.INPUT))
                                 label {
+                                    graphic = when(it.parameter.type){
+                                        ParameterType.INPUT -> FontAwesomeIconView(FontAwesomeIcon.LEVEL_DOWN).apply {
+                                            style {
+                                                fill = c("#818181")
+                                            }
+                                            //glyphSize = 18
+                                        }
+                                        ParameterType.OUTPUT -> FontAwesomeIconView(FontAwesomeIcon.LEVEL_UP).apply {
+                                            style {
+                                                fill = c("#818181")
+                                            }
+                                            //glyphSize = 18
+                                        }
+                                        ParameterType.CONSTRAINT -> FontAwesomeIconView(FontAwesomeIcon.ANCHOR).apply {
+                                            style {
+                                                fill = c("#818181")
+                                            }
+                                            //glyphSize = 18
+                                        }
+                                        else -> throw IllegalArgumentException("Invalid value type")
+
+                                    }
                                     style {
                                         fontWeight = FontWeight.BOLD
                                     }
@@ -66,6 +89,12 @@ class DictionaryArea : View("Dictionary") {
                                 }
                             }
                             is Action -> label {
+                                graphic = FontAwesomeIconView(FontAwesomeIcon.COG).apply {
+                                    style {
+                                        fill = c("#818181")
+                                    }
+                                    //glyphSize = 18
+                                }
                                 style {
                                     textFill = Color.BLUE
                                 }
@@ -81,11 +110,12 @@ class DictionaryArea : View("Dictionary") {
                             val misc = arrayListOf<Any>()
                             if (parent == root) event.entries.map { it.input }
                             else if (value is ParameterAction && value.parameter.type.equals(ParameterType.INPUT)) {
-                                misc.addAll(event.entries.find { it.input.equals(value) }!!.outputs)
+                                misc.addAll(event.entries.find { it.input.equals(value) }!!.constraintOutputs)
                                 misc.addAll(value.actions)
                                 misc
+
                             }
-                            else if (value is ParameterAction && value.parameter.type.equals(ParameterType.OUTPUT)) {
+                            else if (value is ParameterAction && (value.parameter.type.equals(ParameterType.OUTPUT) || value.parameter.type.equals(ParameterType.CONSTRAINT))) {
                                 value.actions
                             }
                             else null

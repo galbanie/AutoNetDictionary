@@ -140,6 +140,6 @@ object ParameterActions : Table("ACTIONS_PARAMETERS"){
 object PartToBaseVehicles : Table("PART_TO_BASE_VEHICLES"){
     val id = integer("PART_TO_BASE_VEHICLE_ID").primaryKey()
     //val baseVehicle_id = integer("BASE_VEHICLE_ID").references(BaseVehicles.id, ReferenceOption.CASCADE)
-    val part_id = integer("PART_ID").references(Parts.id, ReferenceOption.CASCADE)
+    //val part_id = integer("PART_ID").references(Parts.id, ReferenceOption.CASCADE)
     //val position_id = integer("POSITION_ID").references(Positions.id, ReferenceOption.CASCADE)
 }

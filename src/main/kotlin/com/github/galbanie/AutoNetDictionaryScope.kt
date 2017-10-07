@@ -29,7 +29,7 @@ class AutoNetDictionaryScope : Scope() {
                         })
                     }
                 }
-                outputs.addAll(
+                constraintOutputs.addAll(
                     ParameterAction().apply {
                         parameter = Parameter().apply{
                             type = ParameterType.OUTPUT
@@ -43,6 +43,13 @@ class AutoNetDictionaryScope : Scope() {
                             field = "BrakeABS"
                             value = "2-wheelABS"
                         }
+                    },
+                    ParameterAction().apply {
+                        parameter = Parameter().apply{
+                            type = ParameterType.CONSTRAINT
+                            field = "section"
+                            value = "Electrical"
+                        }
                     }
                 )
             },
@@ -54,7 +61,7 @@ class AutoNetDictionaryScope : Scope() {
                         value = "drum"
                     }
                 }
-                outputs.addAll(
+                constraintOutputs.addAll(
                         ParameterAction().apply {
                             parameter = Parameter().apply{
                                 type = ParameterType.OUTPUT
