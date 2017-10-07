@@ -38,7 +38,15 @@ class DictionaryArea : View("Dictionary") {
     val entryModel : EntryModel by inject()
     override val root = borderpane {
         left{
-
+            form{
+                fieldset {
+                    field{
+                        textfield {
+                            promptText = "Search"
+                        }
+                    }
+                }
+            }
         }
         center{
             stackpane {
@@ -113,7 +121,6 @@ class DictionaryArea : View("Dictionary") {
                                 misc.addAll(event.entries.find { it.input.equals(value) }!!.constraintOutputs)
                                 misc.addAll(value.actions)
                                 misc
-
                             }
                             else if (value is ParameterAction && (value.parameter.type.equals(ParameterType.OUTPUT) || value.parameter.type.equals(ParameterType.CONSTRAINT))) {
                                 value.actions
@@ -128,7 +135,25 @@ class DictionaryArea : View("Dictionary") {
             }
         }
         right {
-            
+            form {
+                fieldset {
+                    field {
+                        combobox<ParameterType> {
+
+                        }
+                    }
+                    field {
+                        textfield {
+
+                        }
+                    }
+                    field {
+                        textfield {
+
+                        }
+                    }
+                }
+            }
         }
     }
 }
